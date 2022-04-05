@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Graph.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="graphh">Graph.h</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;memory.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;map&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;fstream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-built_in">string</span> startCity, endCity;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Graph</span> //图结构
+{</span>
+<span class="hljs-keyword">public</span>:
+    Graph()
+    {
+        <span class="hljs-built_in">memset</span>(graph, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span>(graph)); <span class="hljs-comment">//图初始化为-1</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">getName</span><span class="hljs-params">(<span class="hljs-keyword">int</span> id)</span>
+    </span>{ <span class="hljs-comment">//获取节点名</span>
+        <span class="hljs-keyword">return</span> city[id];
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> from, <span class="hljs-keyword">int</span> to)</span>
+    </span>{ <span class="hljs-comment">//获取边</span>
+        <span class="hljs-keyword">return</span> graph[from][to];
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">addEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> from, <span class="hljs-keyword">int</span> to, <span class="hljs-keyword">int</span> cost)</span>
+    </span>{ <span class="hljs-comment">//新增一条边</span>
+        <span class="hljs-keyword">if</span> (from &gt;= <span class="hljs-number">20</span> || from &lt; <span class="hljs-number">0</span> || to &gt;= <span class="hljs-number">20</span> || to &lt; <span class="hljs-number">0</span>)
+            <span class="hljs-keyword">return</span>;
+        graph[from][to] = cost;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getSize</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> size; } <span class="hljs-comment">//获取图的规模</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getedgeN</span><span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> edgeN; } <span class="hljs-comment">//获取图的边数</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getH</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>{ <span class="hljs-keyword">return</span> h[i]; } <span class="hljs-comment">//获取当前节点的H估计值</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getId</span><span class="hljs-params">(<span class="hljs-built_in">string</span> city)</span> </span>{ <span class="hljs-keyword">return</span> idMap[city]; }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getInfo</span><span class="hljs-params">()</span>
+    </span>{ <span class="hljs-comment">//读取文件信息</span>
+        <span class="hljs-built_in">string</span> info;
+        <span class="hljs-function">ifstream <span class="hljs-title">in</span><span class="hljs-params">(<span class="hljs-string">"graphInfo.txt"</span>)</span></span>; <span class="hljs-comment">//读取文件</span>
+
+        <span class="hljs-comment">//读取城市名字</span>
+        in &gt;&gt; info;
+        <span class="hljs-comment">// cout &lt;&lt; info &lt;&lt; endl;</span>
+        in &gt;&gt; size;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+        {
+            in &gt;&gt; city[i];
+            idMap[city[i]] = i; <span class="hljs-comment">//建立映射</span>
+        }
+
+        <span class="hljs-comment">//读取h估计值序列</span>
+        in &gt;&gt; info;
+        <span class="hljs-comment">// cout &lt;&lt; info &lt;&lt; endl;</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++)
+        {
+            in &gt;&gt; h[i];
+        }
+
+        <span class="hljs-comment">//读取图节点</span>
+        in &gt;&gt; info;
+        <span class="hljs-comment">// cout &lt;&lt; info &lt;&lt; endl;</span>
+        in &gt;&gt; edgeN;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; edgeN; i++)
+        {
+            <span class="hljs-built_in">string</span> u, v;
+            <span class="hljs-keyword">int</span> c;
+            in &gt;&gt; u &gt;&gt; v &gt;&gt; c;
+            addEdge(idMap[u], idMap[v], c);
+        }
+
+        <span class="hljs-comment">//读取开始和结束城市</span>
+        in &gt;&gt; info;
+        <span class="hljs-comment">// cout &lt;&lt; info &lt;&lt; endl;</span>
+        in &gt;&gt; startCity &gt;&gt; endCity;
+        in.close(); <span class="hljs-comment">//关闭文件流</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span>
+    </span>{ <span class="hljs-comment">//图初始化</span>
+        getInfo();
+    }
+
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">int</span> graph[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];    <span class="hljs-comment">//图数组，用来保存图信息，最多有20个节点</span>
+    <span class="hljs-built_in">string</span> city[<span class="hljs-number">100</span>];       <span class="hljs-comment">//Name数组，建立id和节点名的映射</span>
+    <span class="hljs-built_in">map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-keyword">int</span>&gt; idMap; <span class="hljs-comment">//建立名字到id的映射</span>
+    <span class="hljs-keyword">int</span> size;               <span class="hljs-comment">//图的规模节点数目</span>
+    <span class="hljs-keyword">int</span> edgeN;              <span class="hljs-comment">//边的数目</span>
+    <span class="hljs-keyword">int</span> h[<span class="hljs-number">100</span>];             <span class="hljs-comment">//从n节点到目标节点可能的最优路径的估计代价</span>
+};
+</div></code></pre>
+
+</body>
+</html>
